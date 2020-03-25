@@ -1,0 +1,235 @@
+<mvc:View
+	controllerName="ss.zss_dyn_page_keys.controller.DynamicPageWithWizard"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:layout="sap.ui.layout"
+	height="100%">
+	<NavContainer id="navContainer">
+		<pages>
+			<f:DynamicPage id="dynamicPage" toggleHeaderOnTitleClick="{/titleClickable}"
+			               class="sapUiNoContentPadding" showFooter="true" fitContent="true">
+				<!-- DynamicPage Title -->
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:heading>
+							<Title id="dfa" text="Header Title"/>
+						</f:heading>
+					</f:DynamicPageTitle>
+				</f:title>
+				<!-- DynamicPage Header -->
+				<f:content>
+					<Wizard id="ShoppingCartWizard"
+					        class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+					        complete="completedHandler"
+					        enableBranching="true">
+						<WizardStep
+							id="ContentsStep"
+							nextStep="PaymentTypeStep"
+							title="Shopping cart contents"
+							icon="sap-icon://cart">
+							<ObjectHeader
+								title="Total"
+								id="obH"
+								number="{/ProductsTotalPrice}"
+								numberUnit="EUR">
+								<attributes>
+									<ObjectAttribute id="_IDEGen_objectattribute0" text="This is the list of items in your shopping cart"/>
+								</attributes>
+							</ObjectHeader>
+							<List mode="Delete"
+							      id="List"
+							      items="{/ProductCollection}"
+							      enableBusyIndicator="true"
+							      delete="handleDelete"
+							      headerText="Items">
+								<StandardListItem id="_IDEGen_standardlistitem0"
+									title="{Name}"
+									type="Active"
+									description="{Description}"
+									icon="{ProductPicUrl}"
+									info="{Price} {CurrencyCode}"
+									iconDensityAware="false"
+									iconInset="false"/>
+							</List>
+						</WizardStep>
+						<WizardStep
+							id="PaymentTypeStep"
+							title="Payment type"
+							subsequentSteps="CreditCardStep, BankAccountStep, CashOnDeliveryStep"
+							complete="goToPaymentStep"
+							icon="sap-icon://money-bills">
+							<Text id="_IDEGen_text0" class="sapUiSmallMarginBottom"
+							      text="We accept all major credit cards. No extra cost will be charged when paying with a credit card. Bank transfer and Cash on delivery are only possible for inland deliveries. A service charge of 2.99 EUR will be charged for these types of deliveries. Be aware, that for Bank transfers, the shipping will start on the day after the payment is received."/>
+							<HBox id="_IDEGen_hbox0"
+								alignItems="Center"
+								justifyContent="Center"
+								width="100%">
+								<SegmentedButton selectionChange="setPaymentMethod" id="paymentMethodSelection"
+								                 selectedKey="{/selectedPayment}">
+									<items>
+										<SegmentedButtonItem id="_IDEGen_segmentedbuttonitem0" key="Credit Card" icon="sap-icon://credit-card"
+										                     text="Credit card"/>
+										<SegmentedButtonItem id="_IDEGen_segmentedbuttonitem1" key="Bank Transfer" icon="sap-icon://official-service"
+										                     text="Bank transfer"/>
+										<SegmentedButtonItem id="_IDEGen_segmentedbuttonitem2" key="Cash on Delivery" icon="sap-icon://money-bills"
+										                     text="Cash on delivery"/>
+									</items>
+								</SegmentedButton>
+							</HBox>
+						</WizardStep>
+						<WizardStep
+							id="CreditCardStep"
+							title="Credit card info"
+							nextStep="BillingStep"
+							activate="checkCreditCardStep"
+							icon="sap-icon://credit-card">
+							<MessageStrip id="_IDEGen_messagestrip0" text="Enter at least 3 symbols for credit card name."/>
+							<form:SimpleForm id="_IDEGen_simpleform0"
+								editable="true">
+								<Label id="_IDEGen_label0" text="Name on card" required="true"/>
+								<Input id="_IDEGen_input0" value="{/CreditCard/Name}" liveChange="checkCreditCardStep"
+								       valueLiveUpdate="true"/>
+								<Label id="_IDEGen_label1" text="Card number"/>
+								<Input id="_IDEGen_input1" value="{/CardNumber}"/>
+								<Label id="_IDEGen_label2" text="Security code"/>
+								<Input id="_IDEGen_input2" value="{/CreditCard/SecurityCode}"/>
+								<Label id="_IDEGen_label3" text="Expiration date"/>
+								<DatePicker id="_IDEGen_datepicker0" value="{/CreditCard/Expire}"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep
+							id="BankAccountStep"
+							title="Beneficial bank info"
+							nextStep="BillingStep"
+							icon="sap-icon://official-service">
+							<Panel id="_IDEGen_panel0">
+								<headerToolbar>
+									<Toolbar id="_IDEGen_toolbar0" height="0rem">
+										<Title id="_IDEGen_title0" text=""/>
+									</Toolbar>
+								</headerToolbar>
+								<layout:Grid id="_IDEGen_grid0"
+									defaultSpan="L6 M6 S10"
+									hSpacing="2">
+									<Label id="_IDEGen_label4" text="Beneficiary Name" design="Bold"/>
+									<Label id="_IDEGen_label5" text="Singapore Hardware e-Commerce LTD"/>
+									<Label id="_IDEGen_label6" text="Beneficiary Bank" design="Bold"/>
+									<Label id="_IDEGen_label7" text="CITY BANK, SINGAPORE BRANCH"/>
+									<Label id="_IDEGen_label8" text="Beneficiary Account Number" design="Bold"/>
+									<Label id="_IDEGen_label9" text="06110702027218"/>
+									<Label id="_IDEGen_label10" text="Bank Phone Number" design="Bold"/>
+									<Label id="_IDEGen_label11" text="+65-6224-2622"/>
+									<Label id="_IDEGen_label12" text="Bank Email Address" design="Bold"/>
+									<Label id="_IDEGen_label13" text="customerservice@citybank.com"/>
+								</layout:Grid>
+							</Panel>
+						</WizardStep>
+						<WizardStep
+							id="CashOnDeliveryStep"
+							title="Cash on delivery info"
+							nextStep="BillingStep"
+							activate="checkCashOnDeliveryStep"
+							icon="sap-icon://money-bills">
+							<MessageStrip id="_IDEGen_messagestrip1" text="Enter at least 3 symbols for first name."/>
+							<form:SimpleForm id="_IDEGen_simpleform1"
+								editable="true">
+								<Label id="_IDEGen_label14" text="First Name" required="true"/>
+								<Input id="_IDEGen_input3" value="{/CashOnDelivery/FirstName}" liveChange="checkCashOnDeliveryStep"
+								       valueLiveUpdate="true"/>
+								<Label id="_IDEGen_label15" text="Last Name"/>
+								<Input id="_IDEGen_input4" value="{/CashOnDelivery/LastName}"/>
+								<Label id="_IDEGen_label16" text="Phone Number"/>
+								<Input id="_IDEGen_input5" value="{/CashOnDelivery/Phone Number}"/>
+								<Label id="_IDEGen_label17" text="Email address"/>
+								<Input id="_IDEGen_input6" value="{/CashOnDelivery/Email}"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep
+							id="BillingStep"
+							title="Billing address"
+							subsequentSteps="DeliveryAddressStep, DeliveryTypeStep"
+							activate="checkBillingStep"
+							complete="billingAddressComplete"
+							icon="sap-icon://sales-quote">
+							<MessageStrip id="_IDEGen_messagestrip2" text="Enter at least 3 symbols for each required field"/>
+							<form:SimpleForm id="_IDEGen_simpleform2"
+								editable="true">
+								<Label id="_IDEGen_label18" text="Delivery address is different"/>
+								<CheckBox id="_IDEGen_checkbox0"
+									selected="{/differentDeliveryAddress}"
+									select="setDifferentDeliveryAddress"/>
+								<Label id="_IDEGen_label19" text="Address" required="true"/>
+								<Input id="_IDEGen_input7" value="{/BillingAddress/Address}" liveChange="checkBillingStep"
+								       valueLiveUpdate="true"/>
+								<Label id="_IDEGen_label20" text="City" required="true"/>
+								<Input id="_IDEGen_input8" value="{/BillingAddress/City}" liveChange="checkBillingStep"
+								       valueLiveUpdate="true"/>
+								<Label id="_IDEGen_label21" text="Zip Code" required="true"/>
+								<Input id="_IDEGen_input9" value="{/BillingAddress/ZipCode}" liveChange="checkBillingStep"
+								       valueLiveUpdate="true"/>
+								<Label id="_IDEGen_label22" text="Country" required="true"/>
+								<Input id="_IDEGen_input10" value="{/BillingAddress/Country}" liveChange="checkBillingStep"
+								       valueLiveUpdate="true"/>
+								<Label id="_IDEGen_label23" text="Note" required="false"/>
+								<TextArea id="_IDEGen_textarea0" rows="8" value="{/BillingAddress/Note}"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep
+							id="DeliveryAddressStep"
+							title="Delivery address"
+							nextStep="DeliveryTypeStep"
+							icon="sap-icon://sales-quote">
+							<form:SimpleForm id="_IDEGen_simpleform3"
+								editable="true">
+								<Label id="_IDEGen_label24" text="Address"/>
+								<Input id="_IDEGen_input11"/>
+								<Label id="_IDEGen_label25" text="City"/>
+								<Input id="_IDEGen_input12"/>
+								<Label id="_IDEGen_label26" text="Zip Code"/>
+								<Input id="_IDEGen_input13"/>
+								<Label id="_IDEGen_label27" text="Country"/>
+								<Input id="_IDEGen_input14"/>
+								<Label id="_IDEGen_label28" text="Note"/>
+								<TextArea id="_IDEGen_textarea1" rows="8"/>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep
+							id="DeliveryTypeStep"
+							title="Delivery type"
+							icon="sap-icon://insurance-car">
+							<Text id="_IDEGen_text1" class="sapUiSmallMarginBottom"
+							      text="Standard delivery will be delivered within 5 workdays. Be aware, that around high-season sales, standard delivery may take up to one additional day. Express delivery is delivered within 36 hours. A service fee of 5.49 EUR is charged for Express delivery on a workday. For a holiday delivery, the service fee is 8,00 EUR. Express delivery is only available for inland deliveries. All service fees vary for deliveries  abroad."/>
+							<HBox id="_IDEGen_hbox1"
+								alignItems="Center"
+								justifyContent="Center"
+								width="100%">
+								<SegmentedButton id="_IDEGen_segmentedbutton0" selectedKey="{/selectedDeliveryMethod}">
+									<items>
+										<SegmentedButtonItem id="_IDEGen_segmentedbuttonitem3" key="Standard Delivery" text="Standard"/>
+										<SegmentedButtonItem id="_IDEGen_segmentedbuttonitem4" key="Express Delivery" text="Express"/>
+									</items>
+								</SegmentedButton>
+							</HBox>
+						</WizardStep>
+					</Wizard>
+				</f:content>
+				<!-- DynamicPage Footer -->
+				<f:footer>
+					<OverflowToolbar id="_IDEGen_overflowtoolbar0">
+						<ToggleButton id="btnToggleKeys" text="Turn keyboard shortcuts off" press="onMousetrap"/>
+						<Button id="_IDEGen_button0" icon="sap-icon://message-popup"
+						        text="messagesLength}"
+						        type="Emphasized"
+						        press="onMessageButtonPress"
+						        visible="{= !!$messagesLength}}"/>
+						<ToolbarSpacer id="_IDEGen_toolbarspacer0"/>
+						<Button id="_IDEGen_button1" type="Accept" text="Accept"/>
+						<Button id="_IDEGen_button2" type="Reject" text="Reject"/>
+					</OverflowToolbar>
+				</f:footer>
+			</f:DynamicPage>
+		</pages>
+	</NavContainer>
+</mvc:View>

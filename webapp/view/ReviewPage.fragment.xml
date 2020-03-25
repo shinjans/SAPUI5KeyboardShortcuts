@@ -1,0 +1,153 @@
+<core:FragmentDefinition
+	height="100%"
+	xmlns:layout="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<Page id="wizardBranchingReviewPage" showHeader="false">
+		<content>
+			<form:SimpleForm id="_IDEGen_simpleform0"
+				title="1. List of products"
+				minWidth="1024"
+				editable="false"
+				layout="ResponsiveGridLayout">
+				<List id="_IDEGen_list0" items="{/ProductCollection}">
+					<StandardListItem id="_IDEGen_standardlistitem0"
+						title="{Name}"
+						type="Active"
+						description="{Description}"
+						icon="{ProductPicUrl}"
+						info="{Price} {CurrencyCode}"
+						iconDensityAware="false"
+						iconInset="false"/>
+				</List>
+				<ObjectHeader id="_IDEGen_objectheader0"
+					title="Total"
+					number="{/ProductsTotalPrice}"
+					numberUnit="EUR">
+					<attributes>
+						<ObjectAttribute id="_IDEGen_objectattribute0"
+							press="handleNavBackToList"
+							active="true"
+							text="Edit"/>
+					</attributes>
+				</ObjectHeader>
+			</form:SimpleForm>
+
+			<form:SimpleForm id="_IDEGen_simpleform1"
+				title="2. Payment type"
+				minWidth="1024"
+				editable="false"
+				layout="ResponsiveGridLayout">
+				<form:content>
+					<Label id="_IDEGen_label0" text="Chosen payment type"/>
+					<Text id="_IDEGen_text0" text="{/selectedPayment}"/>
+					<Link id="_IDEGen_link0" press="handleNavBackToPaymentType" text="Edit"/>
+				</form:content>
+			</form:SimpleForm>
+
+			<form:SimpleForm id="_IDEGen_simpleform2"
+				visible="{= ${/selectedPayment}==='Credit Card' ? true : false}"
+				title="3. Credit Card payment"
+				minWidth="1024"
+				editable="false"
+				layout="ResponsiveGridLayout">
+				<form:content>
+					<Label id="_IDEGen_label1" text="Name on card"/>
+					<Text id="_IDEGen_text1" text="{/CreditCard/Name}"/>
+					<Label id="_IDEGen_label2" text="Card number"/>
+					<Text id="_IDEGen_text2" text="{/CardNumber}"/>
+					<Label id="_IDEGen_label3" text="Security code"/>
+					<Text id="_IDEGen_text3" text="{/CreditCard/SecurityCode}"/>
+					<Label id="_IDEGen_label4" text="Expiration date"/>
+					<Text id="_IDEGen_text4" text="{/CreditCard/Expire}"/>
+					<Link id="_IDEGen_link1" press="handleNavBackToCreditCard" text="Edit"/>
+				</form:content>
+			</form:SimpleForm>
+
+			<form:SimpleForm id="_IDEGen_simpleform3"
+				visible="{= ${/selectedPayment}==='Bank Transfer' ? true : false}"
+				title="3. Bank Transfer"
+				minWidth="1024"
+				editable="false"
+				layout="ResponsiveGridLayout">
+				<form:content>
+					<layout:Grid id="_IDEGen_grid0"
+						defaultSpan="L6 M6 S10"
+						hSpacing="2">
+						<Label id="_IDEGen_label5" text="Beneficiary Name" design="Bold"/>
+						<Label id="_IDEGen_label6" text="Singapore Hardware e-Commerce LTD"/>
+						<Label id="_IDEGen_label7" text="Beneficiary Bank" design="Bold"/>
+						<Label id="_IDEGen_label8" text="CITY BANK, SINGAPORE BRANCH"/>
+						<Label id="_IDEGen_label9" text="Beneficiary Account Number" design="Bold"/>
+						<Label id="_IDEGen_label10" text="06110702027218"/>
+						<Label id="_IDEGen_label11" text="Bank Phone Number" design="Bold"/>
+						<Label id="_IDEGen_label12" text="+65-6224-2622"/>
+						<Label id="_IDEGen_label13" text="Bank Email Address" design="Bold"/>
+						<Label id="_IDEGen_label14" text="customerservice@citybank.com"/>
+					</layout:Grid>
+				</form:content>
+			</form:SimpleForm>
+
+			<form:SimpleForm id="_IDEGen_simpleform4"
+				visible="{= ${/selectedPayment}==='Cash on Delivery' ? true : false}"
+				title="3. Cash on delivery"
+				minWidth="1024"
+				editable="false"
+				layout="ResponsiveGridLayout">
+				<form:content>
+					<Label id="_IDEGen_label15" text="First Name"/>
+					<Text id="_IDEGen_text5" text="{/CashOnDelivery/FirstName}"/>
+					<Label id="_IDEGen_label16" text="Last Name"/>
+					<Text id="_IDEGen_text6" text="{/CashOnDelivery/LastName}"/>
+					<Label id="_IDEGen_label17" text="Phone number"/>
+					<Text id="_IDEGen_text7" text="{/CashOnDelivery/Phone Number}"/>
+					<Label id="_IDEGen_label18" text="Email address"/>
+					<Text id="_IDEGen_text8" text="{/CashOnDelivery/Email}"/>
+					<Link id="_IDEGen_link2" press="handleNavBackToCashOnDelivery" text="Edit"/>
+				</form:content>
+			</form:SimpleForm>
+
+			<form:SimpleForm id="_IDEGen_simpleform5"
+				title="4. Billing Address"
+				minWidth="1024"
+				editable="false"
+				layout="ResponsiveGridLayout">
+				<form:content>
+					<Label id="_IDEGen_label19" text="Address"/>
+					<Text id="_IDEGen_text9" text="{/BillingAddress/Address}"/>
+					<Label id="_IDEGen_label20" text="City"/>
+					<Text id="_IDEGen_text10" text="{/BillingAddress/City}"/>
+					<Label id="_IDEGen_label21" text="Zip Code"/>
+					<Text id="_IDEGen_text11" text="{/BillingAddress/ZipCode}"/>
+					<Label id="_IDEGen_label22" text="Country"/>
+					<Text id="_IDEGen_text12" text="{/BillingAddress/Country}"/>
+					<Label id="_IDEGen_label23" text="Note"/>
+					<Text id="_IDEGen_text13" text="{/BillingAddress/Note}"/>
+					<Link id="_IDEGen_link3" press="handleNavBackToBillingAddress" text="Edit"/>
+				</form:content>
+			</form:SimpleForm>
+
+			<form:SimpleForm id="_IDEGen_simpleform6"
+				title="5. Delivery type"
+				minWidth="1024"
+				editable="false"
+				layout="ResponsiveGridLayout">
+				<form:content>
+					<Label id="_IDEGen_label24" text="Chosen delivery type"/>
+					<Text id="_IDEGen_text14" text="{/selectedDeliveryMethod}"/>
+					<Link id="_IDEGen_link4" press="handleNavBackToDeliveryType" text="Edit"/>
+				</form:content>
+			</form:SimpleForm>
+
+		</content>
+		<footer>
+			<Bar id="_IDEGen_bar0">
+				<contentRight>
+					<Button id="_IDEGen_button0" text="Submit" press="handleWizardSubmit"/>
+					<Button id="_IDEGen_button1" text="Cancel" press="handleWizardCancel"/>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>
