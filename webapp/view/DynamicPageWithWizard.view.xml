@@ -219,11 +219,6 @@
 				<f:footer>
 					<OverflowToolbar id="_IDEGen_overflowtoolbar0">
 						<ToggleButton id="btnToggleKeys" text="Turn keyboard shortcuts off" press="onMousetrap"/>
-						<Button id="_IDEGen_button0" icon="sap-icon://message-popup"
-						        text="messagesLength}"
-						        type="Emphasized"
-						        press="onMessageButtonPress"
-						        visible="{= !!$messagesLength}}"/>
 						<ToolbarSpacer id="_IDEGen_toolbarspacer0"/>
 						<Button id="_IDEGen_button1" type="Accept" text="Accept"/>
 						<Button id="_IDEGen_button2" type="Reject" text="Reject"/>
